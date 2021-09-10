@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Connexion
+class RoleVerification
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,11 @@ class Connexion
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = auth()->user();
-
-        if(!auth()->check()){
-            return redirect(route("welcome"));
+        if(Auth::user()->role_id == 1){
+            return $next($request);
+        } else {
+            return redirect()->back();
         }
+
     }
 }
